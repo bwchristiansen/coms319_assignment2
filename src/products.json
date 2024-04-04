@@ -1,0 +1,50 @@
+[
+    {
+        "id:": 1,
+        "title": "Nespresso Vertuo Pop+ Liquorice Black",
+        "price": 129.99,
+        "category": "Coffee",
+        "image": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSPZDlnjT6yZjeP_cz0ahichnGupwTpT6zxNmsFelNYI3FOptIS4-jiullGpYKIxWkwx_sbTghmrhWnxV28_LqhxJ4lUVN8fF-iKUzhVfGuJqEUwxBTHzc3BFkoDPXSh8X6cYTNz9M&usqp=CAc",
+        "rating": 4.5
+    },
+    {
+        "id": 2,
+        "title": "HENCKELS Premium Quality 15-Piece Knife Set with Block, Razor-Sharp, German Engineered Knife",
+        "price": 149.95,
+        "category": "Kitchen",
+        "image": "https://m.media-amazon.com/images/I/71yDnrvlKVL._AC_SY450_.jpg",
+        "rating": 4.5    
+    },
+    {
+        "id": 3,
+        "title": "Non-Stick Cookware 15-Piece Set, Pots, Pans and Utensils, Black",
+        "price": 71.42,
+        "category": "Kitchen",
+        "image": "https://m.media-amazon.com/images/I/71oZ1-QYomL._AC_SX450_.jpg",
+        "rating": 4.5
+    },
+    {
+        "id": 4,
+        "title": "Kenmore 24 inch Built-In Stainless Steel Tub Dishwasher",
+        "price": 649.99,
+        "category": "Appliance",
+        "image": "https://m.media-amazon.com/images/I/81usn2I0LVL._AC_SY606_.jpg",
+        "rating": 4.5
+    },
+    {
+        "id": 5,
+        "title": "Kenmore Front Control Electric Range Oven with 5 Cooktop",
+        "price": 1328.99,
+        "category": "Appliance",
+        "image": "https://m.media-amazon.com/images/I/71cu8xJ9kzL._AC_SX466_.jpg",
+        "rating": 5
+    },
+    {
+        "id": 6,
+        "title": "Chefman Countertop Microwave Oven 0.7",
+        "price": 93.95,
+        "category": "Appliance",
+        "image": "https://m.media-amazon.com/images/I/71byMZeDqHL._AC_SX466_.jpg",
+        "rating": 4.5
+    }
+]
