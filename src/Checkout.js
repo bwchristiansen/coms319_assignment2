@@ -8,17 +8,36 @@ const Checkout = () => {
     return (
         <div>
             <h1>Checkout</h1>
-            { 
-                cart.map((item) => (
-                    <div key={item.id}>
-                        <p>{item.title}</p>
-                        <p>${item.price}</p>
-                        { /* Need to implement quantity */}
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-8 cart">
+                        <div class="title">
+                            <div class="row">
+                                <div class="col">
+                                    <h4><b>Shopping Cart</b></h4>
+                                </div>
+                                <div class="col align-self-center text-right text-muted">
+                                    Products selected {cart.length}
+                                </div>
+                            </div>
+                        </div>
+                        { 
+                            cart.map((item) => (
+                                <div class="row border-top border-bottom" key={item.id}>
+                                    <div class="row main align-items-center">
+                                        <div class="col-2"><img class="img-fluid" src={item.image} /></div>
+                                        <div class="col">
+                                            <div class="row text-muted">{item.title}</div>
+                                            <div class="row">{item.category}</div>
+                                        </div>
+                                        <div class="col">${item.price} x {item.quantity}</div>
+                                    </div>
+                                </div>
+                            ))
+                        }
                     </div>
-                ))
-            }
-            {/* Need to implement total cost */}
-            { /* Need to implement form */}
+                </div>
+            </div>
             <Link to="/" class="btn btn-primary">Return</Link>
         </div>
     );
