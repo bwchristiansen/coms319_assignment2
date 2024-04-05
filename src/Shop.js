@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import items from "./products.json";
 import "bootstrap/dist/css/bootstrap.css";
+import { Link } from "react-router-dom";
 
 var order = {
   name: "",
@@ -173,6 +174,7 @@ const Shop = () => {
                 <span class="small text-muted me-2">Order total:</span>
                 <span class="lead fw-normal">${ cartTotal }</span>
                 </p>
+                <Link to="/checkout" class="btn btn-primary">Checkout</Link>
             </div>
             </div>
         </div>
