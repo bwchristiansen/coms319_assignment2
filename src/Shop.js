@@ -21,22 +21,35 @@ const Shop = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    const newTotal = cart.reduce((total, item) => total + item.price, 0);
+    const newTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
     setCartTotal(newTotal);
     }, [cart]);
 
     const addToCart = (item) => {
-        setCart(prevCart => [...prevCart, item]);
+      const existingItem = cart.find(cartItem => cartItem.id === item.id);
+      if (existingItem) {
+        // If the item is already in the cart, increment its quantity
+        setCart(prevCart => prevCart.map(cartItem =>
+          cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+        ));
+      } else {
+        // If the item is not in the cart, add it with a quantity of 1
+        setCart(prevCart => [...prevCart, { ...item, quantity: 1 }]);
+      }
     };
     
     const removeFromCart = (item) => {
-      const index = cart.findIndex(cartItem => cartItem.id === item.id);
-      if (index >= 0) {
-        setCart(prevCart => {
-          const newCart = [...prevCart];
-          newCart.splice(index, 1);
-          return newCart;
-        });
+      const existingItem = cart.find(cartItem => cartItem.id === item.id);
+      if (existingItem) {
+        if (existingItem.quantity > 1) {
+          // If the item's quantity is more than 1, decrement its quantity
+          setCart(prevCart => prevCart.map(cartItem =>
+            cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
+          ));
+        } else {
+          // If the item's quantity is 1, remove the item from the cart
+          setCart(prevCart => prevCart.filter(cartItem => cartItem.id !== item.id));
+        }
       }
     };
       const handleSearch = (event) => {
@@ -47,7 +60,12 @@ const Shop = () => {
         item.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
 
-      const listItems = filteredItems.map((el) => (
+      const displayItems = filteredItems.map(item => {
+        const cartItem = cart.find(cartItem => cartItem.id === item.id);
+        return cartItem ? cartItem : { ...item, quantity: 0 };
+      });
+
+      const listItems = displayItems.map((el) => (
         // PRODUCT
         <div class="row border-top border-bottom" key={el.id}>
           <div class="row main align-items-center">
@@ -77,8 +95,7 @@ const Shop = () => {
               </button>
             </div>
             <div class="col">
-              ${el.price} <span class="close">&#10005;</span>
-              {/* {howManyofThis(el.id)} */}
+            ${el.price} x {el.quantity || 0} <span class="close"></span>
             </div>
           </div>
         </div>
