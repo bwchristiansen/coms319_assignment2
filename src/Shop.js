@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import items from "./products.json";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link } from "react-router-dom";
+import { CartContext } from "./App";
 
 var order = {
   name: "",
@@ -15,7 +16,7 @@ var order = {
 };
 
 const Shop = () => {
-  const [cart, setCart] = useState([]);
+  const { cart, setCart } = useContext(CartContext);
   const [cartTotal, setCartTotal] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -28,9 +29,16 @@ const Shop = () => {
         setCart(prevCart => [...prevCart, item]);
     };
     
-      const removeFromCart = (item) => {
-        setCart(prevCart => prevCart.filter(cartItem => cartItem.id !== item.id));
-        };
+    const removeFromCart = (item) => {
+      const index = cart.findIndex(cartItem => cartItem.id === item.id);
+      if (index >= 0) {
+        setCart(prevCart => {
+          const newCart = [...prevCart];
+          newCart.splice(index, 1);
+          return newCart;
+        });
+      }
+    };
       const handleSearch = (event) => {
         setSearchTerm(event.target.value);
       };
