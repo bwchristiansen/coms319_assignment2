@@ -1,9 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from './App';
 
 const Checkout = () => {
     const { cart } = useContext(CartContext);
+    const [total, setTotal] = useState(0);
+
+    useEffect(() => {
+        let newTotal = 0;
+        cart.forEach(item => {
+            newTotal += item.price * item.quantity;
+        });
+        setTotal(newTotal);
+    }, [cart]);
     
     return (
         <div>
@@ -35,6 +44,11 @@ const Checkout = () => {
                                 </div>
                             ))
                         }
+                        <div class="row">
+                            <div class="col align-self-center text-right text-muted">
+                                Order total: ${total.toFixed(2)}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
