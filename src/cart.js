@@ -17,9 +17,10 @@ const Shop = () => {
   const [cart, setCart] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
 
-  //   useEffect(() => {
-  //     total();
-  //   }, [cart]);
+  useEffect(() => {
+    const newTotal = cart.reduce((total, item) => total + item.price, 0);
+    setCartTotal(newTotal);
+    }, [cart]);
 
   const listItems = items.map((el) => (
     // PRODUCT
@@ -36,7 +37,7 @@ const Shop = () => {
           <button
             type="button"
             variant="light"
-            // onClick={() => removeFromCart(el)}
+            onClick={() => removeFromCart(el)}
           >
             {" "}
             -{" "}
@@ -44,7 +45,7 @@ const Shop = () => {
           <button
             type="button"
             variant="light"
-            //   onClick={() => addToCart(el)}
+            onClick={() => addToCart(el)}
           >
             {" "}
             +{" "}
@@ -57,6 +58,14 @@ const Shop = () => {
       </div>
     </div>
   ));
+
+  const addToCart = (item) => {
+    setCart(prevCart => [...prevCart, item]);
+};
+
+  const removeFromCart = (item) => {
+    setCart(prevCart => prevCart.filter(cartItem => cartItem.id !== item.id));
+    };
 
   // function validateOrder(order) {
   //   let bool = true;
@@ -152,7 +161,7 @@ const Shop = () => {
           <div class="float-end">
             <p class="mb-0 me-5 d-flex align-items-center">
               <span class="small text-muted me-2">Order total:</span>
-              <span class="lead fw-normal">${/* {cartTotal} */}</span>
+              <span class="lead fw-normal">${ cartTotal }</span>
             </p>
           </div>
         </div>
