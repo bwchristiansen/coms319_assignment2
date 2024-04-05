@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from './App';
 
 const Checkout = () => {
     const { cart } = useContext(CartContext);
     const [total, setTotal] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         let newTotal = 0;
@@ -13,9 +14,16 @@ const Checkout = () => {
         });
         setTotal(newTotal);
     }, [cart]);
+
+    const handleOrder = (event) => {
+        event.preventDefault();
+        // Add your validation logic here
+        navigate('/confirmation');
+    };
     
     return (
         <div>
+            <Link to="/" class="btn btn-primary">Return</Link>
             <h1>Checkout</h1>
             <div class="card">
                 <div class="row">
@@ -52,7 +60,34 @@ const Checkout = () => {
                     </div>
                 </div>
             </div>
-            <Link to="/" class="btn btn-primary">Return</Link>
+            <form onSubmit={handleOrder}>
+                <h2>Payment Information</h2>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <input style={{ flex: 1 }} type="text" placeholder="Full Name" required />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <input style={{ flex: 1 }} type="email" placeholder="Email" required />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <input style={{ flex: 1 }} type="text" placeholder="Card Number XXXX-XXXX-XXXX-XXXX" required />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <input style={{ flex: 1 }} type="text" placeholder="Address" required />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <input style={{ flex: 1 }} type="text" placeholder="Address 2" />
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <input style={{ flex: 1 }} type="text" placeholder="City" required />
+                    <input style={{ flex: 1 }} type="text" placeholder="State" required />
+                    <input style={{ flex: 1 }} type="text" pattern="\d{5}" placeholder="Zip" required />
+                </div>
+                <div>
+                    <input type="checkbox" id="confirm" required />
+                    <label for="confirm">Check me out</label>
+                </div>
+                <button type="submit">Order</button>
+            </form>
         </div>
     );
 };
