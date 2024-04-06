@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CartContext } from './App';
+import { CartContext, UserContext } from './App';
 import Select from 'react-select';
 
 const Checkout = () => {
@@ -8,6 +8,15 @@ const Checkout = () => {
     const [total, setTotal] = useState(0);
     const [state, setState] = useState(null);
     const navigate = useNavigate();
+    const { user, setUser } = useContext(UserContext);
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [cardNumber, setCardNumber] = useState('');
+    const [address, setAddress] = useState('');
+    const [address2, setAddress2] = useState('');
+    const [city, setCity] = useState('');
+    const [zip, setZip] = useState('');
 
     useEffect(() => {
         let newTotal = 0;
@@ -19,7 +28,16 @@ const Checkout = () => {
 
     const handleOrder = (event) => {
         event.preventDefault();
-        // Add your validation logic here
+        setUser({
+            name: name,
+            email: email,
+            cardNumber: cardNumber,
+            address: address,
+            address2: address2,
+            city: city,
+            state: state,
+            zip: zip,
+        });
         navigate('/confirmation');
     };
 
@@ -68,24 +86,24 @@ const Checkout = () => {
             <form onSubmit={handleOrder}>
                 <h2>Payment Information</h2>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <input style={{ flex: 1 }} type="text" placeholder="Full Name" required />
+                    <input style={{ flex: 1 }} type="text" placeholder="Full Name" value={name} onChange={e => setName(e.target.value)} required />
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <input style={{ flex: 1 }} type="email" placeholder="Email" required />
+                    <input style={{ flex: 1 }} type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <input style={{ flex: 1 }} type="text" placeholder="Card Number XXXX-XXXX-XXXX-XXXX" required />
+                    <input style={{ flex: 1 }} type="text" placeholder="Card Number XXXX-XXXX-XXXX-XXXX" value={cardNumber} onChange={e => setCardNumber(e.target.value)} required />
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <input style={{ flex: 1 }} type="text" placeholder="Address" required />
+                    <input style={{ flex: 1 }} type="text" placeholder="Address" value={address} onChange={e => setAddress(e.target.value)} required />
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <input style={{ flex: 1 }} type="text" placeholder="Address 2" />
+                <input style={{ flex: 1 }} type="text" placeholder="Address 2" value={address2} onChange={e => setAddress2(e.target.value)} />
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <input style={{ flex: 1 }} type="text" placeholder="City" required />
+                    <input style={{ flex: 1 }} type="text" placeholder="City" value={city} onChange={e => setCity(e.target.value)} required />
                     <Select options={stateOptions} defaultValue={stateOptions[0]} onChange={selectedOption => setState(selectedOption.value)} style={{ flex: 1 }} />
-                    <input style={{ flex: 1 }} type="text" pattern="\d{5}" placeholder="Zip" required />
+                    <input style={{ flex: 1 }} type="text" pattern="\d{5}" placeholder="Zip" value={zip} onChange={e => setZip(e.target.value)} required />
                 </div>
                 <div>
                     <input type="checkbox" id="confirm" required />
