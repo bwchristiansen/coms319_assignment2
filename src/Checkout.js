@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from './App';
+import Select from 'react-select';
 
 const Checkout = () => {
     const { cart } = useContext(CartContext);
     const [total, setTotal] = useState(0);
+    const [state, setState] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,7 +22,10 @@ const Checkout = () => {
         // Add your validation logic here
         navigate('/confirmation');
     };
-    
+
+    const states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"];
+    const stateOptions = states.map(state => ({ value: state, label: state }));
+
     return (
         <div>
             <Link to="/" class="btn btn-primary">Return</Link>
@@ -79,7 +84,7 @@ const Checkout = () => {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <input style={{ flex: 1 }} type="text" placeholder="City" required />
-                    <input style={{ flex: 1 }} type="text" placeholder="State" required />
+                    <Select options={stateOptions} defaultValue={stateOptions[0]} onChange={selectedOption => setState(selectedOption.value)} style={{ flex: 1 }} />
                     <input style={{ flex: 1 }} type="text" pattern="\d{5}" placeholder="Zip" required />
                 </div>
                 <div>
